@@ -10,16 +10,15 @@ def read_file(filepath: str):
     history_file = open(filepath, "r")
     history = []
 
+    # Find all currently installed lines in history file
     for line in history_file:
         if line.__contains__("apt install"):
             pkg_name = re.findall(r'apt install ([\w-]+)', line)
             try:
                 if cache[pkg_name[0]].is_installed:
                     history.append(pkg_name[0])
-                else:
-                    print("is not installed")
             except:
-                print("is not installed")
+                continue
     
     for item in history:
         print(item)
